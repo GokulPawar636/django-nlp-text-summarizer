@@ -25,7 +25,7 @@ WORKDIR /app
 # -----------------------------
 # Copy Requirements
 # -----------------------------
-COPY requirements.txt /app/
+COPY requirements.txt .
 
 # -----------------------------
 # Install Python Dependencies
@@ -33,9 +33,9 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # -----------------------------
-# Copy Django Project (IMPORTANT)
+# Copy Django Project Files
 # -----------------------------
-COPY text_summarizer /app
+COPY . .
 
 # -----------------------------
 # Download NLTK Data
