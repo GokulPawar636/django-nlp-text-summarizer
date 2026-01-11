@@ -10,17 +10,17 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # -----------------------------
-# Set Working Directory
-# -----------------------------
-WORKDIR /app
-
-# -----------------------------
 # Install System Dependencies
 # -----------------------------
 RUN apt-get update && apt-get install -y \
     build-essential \
     poppler-utils \
     && rm -rf /var/lib/apt/lists/*
+
+# -----------------------------
+# Set Working Directory
+# -----------------------------
+WORKDIR /app
 
 # -----------------------------
 # Copy Requirements
@@ -33,9 +33,9 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # -----------------------------
-# Copy Django Project
+# Copy Django Project (IMPORTANT)
 # -----------------------------
-COPY text_summarizer /app/text_summarizer
+COPY text_summarizer /app
 
 # -----------------------------
 # Download NLTK Data
@@ -50,4 +50,4 @@ EXPOSE 8000
 # -----------------------------
 # Run Django Server
 # -----------------------------
-CMD ["python", "text_summarizer/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
