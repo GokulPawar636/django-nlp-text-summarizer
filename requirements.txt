@@ -1,0 +1,6 @@
+Django>=6.0.1
+nltk
+sumy
+pdfplumber
+beautifulsoup4
+requests

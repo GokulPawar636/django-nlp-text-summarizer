@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .option-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .summary-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eef;
+            border-radius: 5px;
+        }
+
+        .summary-box li {
+            margin-bottom: 8px;
+        }
+
+        .error-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ffe6e6;
+            border-radius: 5px;
+            color: #900;
+        }
+
+        .info {
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📄 PDF & 🌐 Web Text Summarizer</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Select Input Type -->
+        <div class="option-group">
+            <label>Select Input Type:</label><br>
+
+            <input type="radio" name="input_type" value="pdf"
+                   {% if input_type == "pdf" %}checked{% endif %}
+                   onclick="toggleInput()"> PDF File
+
+            <input type="radio" name="input_type" value="url"
+                   {% if input_type == "url" %}checked{% endif %}
+                   onclick="toggleInput()"> Web URL
+        </div>
+
+        <!-- PDF Upload -->
+        <div id="pdfInput" class="option-group {% if input_type == 'url' %}hidden{% endif %}">
+            <label>Upload PDF:</label><br>
+            {{ form.pdf_file }}
+        </div>
+
+        <!-- URL Input -->
+        <div id="urlInput" class="option-group {% if input_type == 'pdf' %}hidden{% endif %}">
+            <label>Enter Website URL:</label><br>
+            {{ form.url }}
+        </div>
+
+        <!-- Sentence Count -->
+        <div class="option-group">
+            <label>Number of Sentences:</label><br>
+            {{ form.sentence_count }}
+            <p class="info">
+                Controls summary length (e.g., 3 = short, 7 = detailed).
+            </p>
+        </div>
+
+        <button type="submit">Generate Summary</button>
+    </form>
+
+    {% if error %}
+    <div class="error-box">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    {% if summary %}
+    <div class="summary-box">
+        <h3>📌 Summary</h3>
+        <ol>
+            {% for sentence in summary %}
+                <li>{{ sentence }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    function toggleInput() {
+        const pdfInput = document.getElementById("pdfInput");
+        const urlInput = document.getElementById("urlInput");
+
+        const selected = document.querySelector('input[name="input_type"]:checked').value;
+
+        if (selected === "pdf") {
+            pdfInput.classList.remove("hidden");
+            urlInput.classList.add("hidden");
+        } else {
+            urlInput.classList.remove("hidden");
+            pdfInput.classList.add("hidden");
+        }
+    }
+
+    // Ensure correct input is shown on page load
+    window.onload = toggleInput;
+</script>
+
+</body>
+</html>
