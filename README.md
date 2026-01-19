@@ -1,23 +1,23 @@
 📄 PDF & Web Text Summarizer (Django + NLP)
 
-    A Django-based NLP web application that extracts text from PDF documents or web pages and generates clear, meaningful summaries using Natural Language Processing techniques.
-    This project demonstrates how NLP models can be integrated into a web application and deployed using Docker.
+A Django-based NLP web application that extracts text from PDF documents or web pages and generates clear, meaningful summaries using Natural Language Processing techniques.
+This project demonstrates how NLP models can be integrated into a web application and deployed using Docker.
 
 📌 Project Description
 
-    Reading long documents or articles can be time-consuming.
-    This project solves that problem by allowing users to upload a PDF file or provide a webpage URL and automatically generate a concise summary.
-    The application uses TextRank, an extractive NLP summarization technique, to identify and present the most important sentences in a readable format.
+Reading long documents or articles can be time-consuming.
+This project solves that problem by allowing users to upload a PDF file or provide a webpage URL and automatically generate a concise summary.
+The application uses TextRank, an extractive NLP summarization technique, to identify and present the most important sentences in a readable format.
 
 🎯 Key Features
 
-    -> Upload and summarize PDF documents
-    -> Fetch and summarize content from web pages
-    -> Adjustable summary length (number of sentences)
-    -> Sentence-wise, readable output
-    -> Error handling for invalid PDFs and URLs
-    -> Clean Django-based user interface
-    -> Fully Dockerized for easy deployment
+-> Upload and summarize PDF documents
+-> Fetch and summarize content from web pages
+-> Adjustable summary length (number of sentences)
+-> Sentence-wise, readable output
+-> Error handling for invalid PDFs and URLs
+-> Clean Django-based user interface
+-> Fully Dockerized for easy deployment
 
 🔁 Application Workflow
         User Input (PDF / URL)
@@ -117,3 +117,4 @@ Run Container
 
 
 Open: http://localhost:8000/
+
